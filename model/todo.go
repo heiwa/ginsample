@@ -32,3 +32,22 @@ func (t *Todos) Get(id int) (*Todo, error) {
 	}
 	return nil, errors.New("not found.")
 }
+
+func (t *Todos) Delete(id int) (*Todo, error){
+	for i, todo := range t.Todos {
+		if todo.Id == id {
+			t.Todos = append(t.Todos[:i], t.Todos[i+1:]...)
+			return &todo, nil
+		}
+	}
+	return nil, errors.New("not found.")
+}
+
+func (t *Todos) Update(todo Todo) {
+	for i, td := range t.Todos {
+		if td.Id == todo.Id {
+			t.Todos[i] = todo
+			return
+		}
+	}
+}
